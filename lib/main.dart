@@ -22,7 +22,7 @@ class CashierApp extends StatelessWidget {
   Widget build(BuildContext context) => ChangeNotifierProvider<AppState>(
     create: (_) => AppState()..init(),
     child: MaterialApp(
-      title: 'Cashier App',
+      title: 'Kasir App',
       theme: ThemeData(
         primaryColor: AppColors.primary,
         colorScheme: ColorScheme.fromSwatch(
