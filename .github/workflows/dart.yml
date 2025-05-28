@@ -19,13 +19,20 @@ jobs:
     - name: 🔧 Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.32.0'  # sesuaikan dengan projectmu
+        flutter-version: '3.32.0'
 
     - name: 📦 Install dependencies
       run: flutter pub get
 
     - name: 🛠️ Build APK
       run: flutter build apk --release
+
+    - name: 📝 Generate release notes from last 5 commits
+      id: release_notes
+      run: |
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        git log -n 5 --pretty=format:"• %s" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: 🚀 Deploy to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -34,6 +41,8 @@ jobs:
         token: ${{ secrets.FIREBASE_TOKEN }}
         groups: internal-testers
         file: build/app/outputs/flutter-apk/app-release.apk
+        releaseNotes: ${{ env.RELEASE_NOTES }}
+
 
 
 # name: Dart
