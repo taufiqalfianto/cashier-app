@@ -6,7 +6,7 @@ name: Flutter CI/CD to Firebase
 
 on:
   push:
-    branches: [main]  # atau branch lain yang kamu gunakan
+    branches: [main]
 
 jobs:
   build-and-deploy:
@@ -19,7 +19,7 @@ jobs:
     - name: 🔧 Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.32.0'  # ganti versi sesuai kebutuhan
+        flutter-version: '3.32.0'  # sesuaikan dengan projectmu
 
     - name: 📦 Install dependencies
       run: flutter pub get
@@ -30,9 +30,9 @@ jobs:
     - name: 🚀 Deploy to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
-        appId: ${{ 486963806775:android:d828c9a36db71fbf1375b2  }}   # dapat dari Firebase Console
-        token: ${{ 0gJ5Sw54NICGxCgYIARAAGBASNwF-L9IrmNlvQ0kuLiYYxzW-NpUVRP9LiJPKqHedOVSVCT9et3ypQyjK_RYXSYeNerC10b2hk34 }}
-        groups: internal-testers                 # nama grup tester
+        appId: ${{ secrets.FIREBASE_APP_ID }}
+        token: ${{ secrets.FIREBASE_TOKEN }}
+        groups: internal-testers
         file: build/app/outputs/flutter-apk/app-release.apk
 
 
