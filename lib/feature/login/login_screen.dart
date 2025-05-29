@@ -21,65 +21,79 @@ class _LoginScreenState extends State<LoginScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Center(
-        child: Container(
-          width: 400,
-          padding: const EdgeInsets.all(32),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.shadow,
-                blurRadius: 20,
-                offset: const Offset(0, 8),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 200,
+            width: 200,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/cashier-logo.png'),
+                fit: BoxFit.cover,
               ),
-            ],
+            ),
           ),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("Welcome Back"),
-                const SizedBox(height: 16),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
-                    prefixIcon: Icon(Icons.person_outline),
-                  ),
-                  onChanged: (v) => _username = v.trim(),
-                  validator: (v) =>
-                      v == null || v.isEmpty ? 'Please enter username' : null,
-                  textInputAction: TextInputAction.next,
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock_outline),
-                  ),
-                  onChanged: (v) => _password = v,
-                  obscureText: true,
-                  validator: (v) =>
-                      v == null || v.isEmpty ? 'Please enter password' : null,
-                  textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) => _tryLogin(),
-                ),
-                const SizedBox(height: 32),
-                SizedBox(
-                  width: double.infinity,
-                  child: _loading
-                      ? const Center(child: CircularProgressIndicator())
-                      : ElevatedButton(
-                          onPressed: _tryLogin,
-                          child: const Text('LOG IN'),
-                        ),
+          Container(
+            width: 400,
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.shadow,
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
               ],
             ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Welcome Back"),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Username',
+                      prefixIcon: Icon(Icons.person_outline),
+                    ),
+                    onChanged: (v) => _username = v.trim(),
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'Please enter username' : null,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: Icon(Icons.lock_outline),
+                    ),
+                    onChanged: (v) => _password = v,
+                    obscureText: true,
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'Please enter password' : null,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) => _tryLogin(),
+                  ),
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: double.infinity,
+                    child: _loading
+                        ? const Center(child: CircularProgressIndicator())
+                        : ElevatedButton(
+                            onPressed: _tryLogin,
+                            child: const Text('LOG IN'),
+                          ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

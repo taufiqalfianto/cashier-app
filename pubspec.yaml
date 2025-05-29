@@ -40,7 +40,14 @@ dependencies:
   sqflite: ^2.4.2
   intl: ^0.20.2
   firebase_core: ^3.13.1
-  cloud_firestore: ^5.6.8
+  flutter_launcher_icons: ^0.14.3
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/cashier-logo.png"
+  min_sdk_android: 21
 
 dev_dependencies:
   flutter_test:
@@ -65,8 +72,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/cashier-logo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
