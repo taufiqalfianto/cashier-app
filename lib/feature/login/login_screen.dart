@@ -35,6 +35,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+          Text(
+            'Cashier App',
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.primary,
+            ),
+          ),
           Container(
             width: 400,
             padding: const EdgeInsets.all(32),
