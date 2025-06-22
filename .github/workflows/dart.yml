@@ -1,7 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
 name: Flutter CI/CD to Firebase
 
 on:
@@ -21,11 +17,21 @@ jobs:
       with:
         flutter-version: '3.32.0'
 
+    - name: 🧹 Clean Project
+      run: flutter clean
+
     - name: 📦 Install dependencies
       run: flutter pub get
 
     - name: 🛠️ Build APK
       run: flutter build apk --release
+
+    - name: 📝 Generate Release Notes from latest commits
+      id: release_notes
+      run: |
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        git log -10 --pretty=format:"%h - %s (%an)" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: 🚀 Deploy to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
