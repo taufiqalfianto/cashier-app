@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pos/common/convert/currency.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pos/common/style/color.dart';
 import 'package:provider/provider.dart';
 
@@ -26,108 +26,41 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     itemCount: appState.products.length,
                     itemBuilder: (context, index) {
                       final p = appState.products[index];
-                      return Card(
-                        elevation: 4,
-                        margin: const EdgeInsets.symmetric(vertical: 6),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
-                          ),
-                          title: Text(
-                            "Nama Produk: ${p.name}\nHarga: ${formatRupiah(p.price)}\nStok: ${p.stock}",
-                          ),
-                          subtitle: Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    FilledButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            WidgetStateProperty.all(
-                                              AppColors.primary,
-                                            ),
-                                      ),
-                                      onPressed: () async {
-                                        if (p.stock > 0) {
-                                          p.stock--;
-                                          await appState.updateProduct(p);
-                                        }
-                                      },
-                                      child: Text('Tambah Stok'),
-                                    ),
-                                    FilledButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            WidgetStateProperty.all(
-                                              AppColors.primary,
-                                            ),
-                                      ),
-                                      onPressed: () async {
-                                        if (p.stock > 0) {
-                                          p.stock--;
-                                          await appState.updateProduct(p);
-                                        }
-                                      },
-                                      child: Text('Kurang Stok'),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 16),
-                                FilledButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: WidgetStateProperty.all(
-                                      AppColors.error,
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    final confirmed = await showDialog<bool>(
-                                      context: context,
-                                      builder: (_) => AlertDialog(
-                                        title: Center(
-                                          child: const Text(
-                                            "Yakin Hapus Produk",
-                                          ),
-                                        ),
-                                        content: Text(
-                                          "Hapus Produk'${p.name}'?",
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, false),
-                                            child: const Text("Batal"),
-                                          ),
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, true),
-                                            child: const Text(
-                                              "Hapus",
-                                              style: TextStyle(
-                                                color: AppColors.error,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                    if (confirmed == true) {
-                                      await appState.removeProduct(p.id!);
-                                    }
-                                  },
-                                  child: Text('Hapus Produk'),
+                      return Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 16.w,
+                        runSpacing: 16.h,
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 100.h,
+                            margin: const EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              color: AppColors.onPrimary,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                             ),
                           ),
-                        ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  if (p.stock > 0) {
+                                    p.stock++;
+                                    await appState.updateProduct(p);
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       );
                     },
                   ),

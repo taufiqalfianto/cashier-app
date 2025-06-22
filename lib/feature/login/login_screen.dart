@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pos/common/widget/button_widget.dart';
 import 'package:pos/database/database.dart';
 import 'package:provider/provider.dart';
 
@@ -21,85 +23,89 @@ class _LoginScreenState extends State<LoginScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: ListView(
         children: [
-          Container(
-            height: 200,
-            width: 200,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/cashier-logo.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Text(
-            'Cashier App',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.primary,
-            ),
-          ),
-          Container(
-            width: 400,
-            padding: const EdgeInsets.all(32),
-            decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.shadow,
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 300,
+                width: 300,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/cashier-ilustration.png'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ],
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("Welcome Back"),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Username',
-                      prefixIcon: Icon(Icons.person_outline),
-                    ),
-                    onChanged: (v) => _username = v.trim(),
-                    validator: (v) =>
-                        v == null || v.isEmpty ? 'Please enter username' : null,
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      prefixIcon: Icon(Icons.lock_outline),
-                    ),
-                    onChanged: (v) => _password = v,
-                    obscureText: true,
-                    validator: (v) =>
-                        v == null || v.isEmpty ? 'Please enter password' : null,
-                    textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (_) => _tryLogin(),
-                  ),
-                  const SizedBox(height: 32),
-                  SizedBox(
-                    width: double.infinity,
-                    child: _loading
-                        ? const Center(child: CircularProgressIndicator())
-                        : ElevatedButton(
-                            onPressed: _tryLogin,
-                            child: const Text('LOG IN'),
-                          ),
-                  ),
-                ],
               ),
-            ),
+              Text(
+                'Cashier App',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 16.h),
+
+                    Text(
+                      "Selamat Datang Kembali",
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        color: AppColors.onBackground,
+                      ),
+                    ),
+                    SizedBox(height: 32.h),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        filled: false,
+                        labelText: 'Username',
+                        labelStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      onChanged: (v) => _username = v.trim(),
+                      validator: (v) => v == null || v.isEmpty
+                          ? 'Please enter username'
+                          : null,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        filled: false,
+                        labelText: 'Password',
+                        labelStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      onChanged: (v) => _password = v,
+                      obscureText: true,
+                      validator: (v) => v == null || v.isEmpty
+                          ? 'Please enter password'
+                          : null,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => _tryLogin(),
+                    ),
+                    SizedBox(height: 32.h),
+                    SizedBox(
+                      width: double.infinity,
+                      child: _loading
+                          ? const Center(child: CircularProgressIndicator())
+                          : ButtonWidget(title: 'Login', onPressed: _tryLogin),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
