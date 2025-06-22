@@ -29,9 +29,11 @@ jobs:
     - name: 📝 Generate Release Notes from latest commits
       id: release_notes
       run: |
-        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-        git log -10 --pretty=format:"%h - %s (%an)" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+        {
+          echo "RELEASE_NOTES<<EOF"
+          git log -10 --pretty=format:"%h - %s (%an)"
+          echo "EOF"
+        } >> $GITHUB_ENV
 
     - name: 🚀 Deploy to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
