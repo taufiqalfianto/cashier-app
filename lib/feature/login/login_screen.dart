@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: double.infinity,
                       child: _loading
                           ? const Center(child: CircularProgressIndicator())
-                          : ButtonWidget(title: 'Login', onPressed: _tryLogin),
+                          : ButtonWidget(title: 'Login', onPressed: _tryLogin), 
                     ),
                   ],
                 ),
